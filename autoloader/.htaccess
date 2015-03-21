@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteRule ^web/ - [L]
+RewriteCond %{THE_REQUEST} web/
+RewriteRule ^php/views/pages/(.*) http://link.tt8.li/$1 [R=301,L]
+RewriteCond %{REQUEST_URI} !web/
+RewriteRule ^(.*)$ /web/$1 [L]
+DirectoryIndex index.php

@@ -1,0 +1,99 @@
+
+
+/******************* Fonts *******************/
+/* cyrillic */
+@font-face {
+    font-family: 'Lobster';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lobster'), local('Lobster-Regular'), url(../fonts/lobster-cyrillic.woff2) format('woff2');
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+    font-family: 'Lobster';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lobster'), local('Lobster-Regular'), url(../fonts/lobster-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Lobster';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lobster'), local('Lobster-Regular'), url(../fonts/lobster-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+/******************* Styles *******************/
+
+body{
+    background-color: #93C3FF;
+    color: white;
+    font-size: 1.6em;
+}
+
+main{
+    text-align: center;
+    margin-top: 50px;
+}
+
+footer{
+    width: 100%;
+    height: 150px;
+    background-color: #072E5E;
+    position: absolute;
+    bottom: 0;
+    padding: 35px;
+}
+
+h1{
+    font-size: 2.5em;
+    text-align: left;
+    margin: 2px 5px;
+    font-family: 'Lobster', cursive;
+}
+
+hr{
+    margin-top: 2px;
+}
+
+a{
+    color: white;
+    text-decoration: underline;
+}
+
+a:hover, a:focus, a:active{
+    color: white;
+    text-decoration: none;
+}
+
+.btn-form{
+    background-color: #0D54AB;
+    border: 1px solid #243E5E;
+    margin: 4px;
+}
+
+.btn-form:active, .btn-form:focus, .btn-form:hover{
+    color: white;
+    background-color: #0b4284;
+}
+
+#container{
+    width: 80%;
+    margin: 0 auto;
+    background-color: #116DDE;
+    border-radius: 15px;
+}
+
+#content{
+    margin: 10px auto;
+    display: inline-block;
+    width: 90%;
+}
+
+#rendered-form{
+    margin: 5px 0 15px;
+}
