@@ -82,15 +82,18 @@ form>label{
     text-align: left;
 }
 
-form>input{
+form>input, textarea{
     color: black;
     text-align: right;
-    width: 40%;
+    max-width: 40%;
+    min-width: 40%;
+    text-align: left;
 }
 
 form>input:last-child{
     margin-top: 20px;
-    width: 20%;
+    max-width: 20%;
+    min-width: 20%;
 }
 
 input[type=date], input[type=time], input[type=datetime-local], input[type=month]{

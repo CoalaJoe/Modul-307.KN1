@@ -145,12 +145,21 @@ class formhandler {
 
                 if (strpos($input[2]['type'], ";") !== false){
                     $type = "type='number' step='any' ";
-                } else{
+                } else if (strpos($input[2]['type'], "area") !== false) {
+                    $type = "";
+                }
+                else{
                     $type = "type='". $input[2]['type'] ."' ";
                 }
 
+                if (strpos($input[2]['type'], "area")){
+                    $field = "<textarea  name='" . $input[1]['name'] . "'" . $needed . "></textarea>";
+                } else{
+                    $field = "<input name='" . $input[1]['name'] . "'  " . $type . $needed .  " />";
+                }
 
-                $content .= "<label for='" . $input[1]['name'] . "'>" . $input[1]['name'] . " : " . $symbol . "</label><input name='" . $input[1]['name'] . "'  " . $type . $needed .  " /><br/>";
+
+                $content .= "<label for='" . $input[1]['name'] . "'>" . $input[1]['name'] . " : " . $symbol . "</label>" . $field . "<br/>";
             }
 
         }
