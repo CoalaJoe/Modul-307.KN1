@@ -37,14 +37,13 @@ body{
 
 main{
     text-align: center;
-    margin-top: 50px;
+    margin: 50px 0 300px;
 }
 
 footer{
     width: 100%;
     height: 150px;
     background-color: #072E5E;
-    position: absolute;
     bottom: 0;
     padding: 35px;
 }
@@ -70,6 +69,38 @@ a:hover, a:focus, a:active{
     text-decoration: none;
 }
 
+pre{
+    text-align: left;
+}
+
+form{
+    width: 80%;
+}
+
+form>label{
+    width: 20%;
+    text-align: left;
+}
+
+form>input{
+    color: black;
+    text-align: right;
+    width: 40%;
+}
+
+form>input:last-child{
+    margin-top: 20px;
+    width: 20%;
+}
+
+input[type=date], input[type=time], input[type=datetime-local], input[type=month]{
+    line-height: normal;
+}
+
+.required{
+    color: red;
+}
+
 .btn-form{
     background-color: #0D54AB;
     border: 1px solid #243E5E;
@@ -89,7 +120,7 @@ a:hover, a:focus, a:active{
 }
 
 #content{
-    margin: 10px auto;
+    margin: 25px auto;
     display: inline-block;
     width: 90%;
 }

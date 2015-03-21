@@ -18,7 +18,7 @@ class databasemanger {
      * Establishes a Databaseconnection.
      * @return bool|\mysqli
      */
-    private function connect(){
+    public function connect(){
         $db = mysqli_connect("127.0.0.1", 'root', 'root', 'KN1');
         $db->set_charset("utf8");
         if ($db->connect_errno > 0){
@@ -28,6 +28,10 @@ class databasemanger {
         }
     }
 
+    /**
+     * Get Tablenames for displaying buttons.
+     * @return array|bool
+     */
     public function getTables(){
         $query = 'SHOW Tables';
         if ($result = mysqli_query($this->connect(), $query)){

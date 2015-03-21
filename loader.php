@@ -6,6 +6,15 @@
  * Time: 18:19
  */
 
+
+use formhandler\formhandler;
+
+require("al.php");
+
 $table = $_POST['name'];
 
-echo "Clicked form: " . $table;
+$formhandler = new formhandler();
+
+$form = $formhandler->getForm($table);
+
+echo $form;

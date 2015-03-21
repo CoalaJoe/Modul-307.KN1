@@ -17,7 +17,7 @@
                     name: tablename
                 },
                 success: function(data){
-                    $('#rendered-form').text(data);
+                    $('#rendered-form').html(data);
                 }
             });
         });

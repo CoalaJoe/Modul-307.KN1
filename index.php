@@ -27,7 +27,7 @@ $databsemanager = new databasemanger();
 <main>
     <div id="container">
         <div id="content">
-            <h1>Formualare</h1>
+            <h1>Formulare</h1>
             <hr/>
             <p>
                 Herzlich Willkommen zu meinem ersten KN zum Modul 307. Bitte wählen Sie ein Formular aus um es anzuzeigen oder zu füllen.
