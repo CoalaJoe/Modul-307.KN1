@@ -18,9 +18,27 @@
                 },
                 success: function(data){
                     $('#rendered-form').html(data);
+                    $('#rendered-form').append('<h1 id="code-title">Code</h1><hr/><pre id="code-area" class="prettyprint js-zeroclipboard-target lang-html"></pre>').hide().fadeIn("slow");
+                    $('#code-area').text(data);
+                    prettyPrint();
+                    $('#code-title').append('&nbsp;<button class="btn btn-success" id="copy-button" data-clipboard-text=" " title="Click to copy me.">Kopieren</button>').hide().fadeIn("slow");
+                    addCopying();
                 }
             });
         });
+
+        var addCopying = function(){
+            var client = new ZeroClipboard( document.getElementById("copy-button") );
+            client.on( "ready", function( readyEvent ) {
+                // alert( "ZeroClipboard SWF is ready!" );
+                $('#copy-button').attr('data-clipboard-text', $('#code-area').text());
+                client.on( "aftercopy", function( event ) {
+                    // `this` === `client`
+                    // `event.target` === the element that was clicked
+                } );
+            } );
+        }
+
 
     });
 

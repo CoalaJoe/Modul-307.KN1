@@ -64,18 +64,18 @@ class formhandler {
 
             } else{
                 if (isset($collumn['Default'])){
-                    array_push($attr, ["placeholder" => $collumn['Default']]);
+                    $attr["placeholder"] = $collumn['Default'];
                 }
 
                 if ($collumn['Null'] == "NO"){
-                    array_push($attr, ["isNull" => false]);
+                    $attr["isNull"] = false;
                 } else{
-                    array_push($attr, ["isNull" => true]);
+                    $attr["isNull"] = true;
                 }
 
-                array_push($attr, ["name" => $collumn['Field']]);
+                $attr["name"] = $collumn['Field'];
 
-                array_push($attr, ["type" => $this->typeParser($collumn['Type'])]);
+                $attr["type"] = $this->typeParser($collumn['Type']);
 
             }
 
@@ -94,6 +94,8 @@ class formhandler {
      */
     public function typeParser($type){
         switch ($type){
+            case ($type === "password"):
+                return "password";
             case (preg_match('/^bigint/', $type) ? true : false) :
             case (preg_match('/^mediumint/', $type) ? true : false) :
             case (preg_match('/^smallint/', $type) ? true : false) :
@@ -132,41 +134,111 @@ class formhandler {
      * @return string
      */
     public function formBuild($array){
+
+        // Final HTML Output
         $content = "";
+
+        $dropdowns = [];
+
+        // Variable for collum input
+        $latestLabelName = "";
+        $labelNeeded = "";
         foreach($array as $input){
-            if (isset($input[0])){
-                if (!$input[0]['isNull']){
+            if (isset($input['isNull'])){
+                $prefix = substr($input['name'], 0 , strpos($input['name'], "_"));
+                if (!$input['isNull']){
                     $needed = "required";
                     $symbol = "<span class='required'>*</span>";
+                    if ($prefix === 'l'){
+                        $labelNeeded = $needed;
+                        $latestSymbol = $symbol;
+                    }
                 } else {
                     $needed = "";
                     $symbol = "";
                 }
 
-                if (strpos($input[2]['type'], ";") !== false){
-                    $type = "type='number' step='any' ";
-                } else if (strpos($input[2]['type'], "area") !== false) {
-                    $type = "";
-                }
-                else{
-                    $type = "type='". $input[2]['type'] ."' ";
-                }
 
-                if (strpos($input[2]['type'], "area")){
-                    $field = "<textarea  name='" . $input[1]['name'] . "'" . $needed . "></textarea>";
+
+                if ($prefix === "l"){
+                    $name = substr($input['name'], strpos($input['name'], "_") + 1);
+                    $latestLabelName = $input['name'];
+                    $content .= "    <label for='". $latestLabelName ."'> ". $name .": ". $symbol ."</label> \n";
+
+                } else if($prefix === "dda") {
+                    $name = substr($input['name'], strpos($input['name'], "_") + 1);
+                    $content .= "    <select name='". $latestLabelName ."' ". $labelNeeded ."  >\n        <option>". $name ."</option>\n";
+                } else if($prefix === "dd"){
+                    $name = substr($input['name'], strpos($input['name'], "_") + 1);
+                    $content .= "        <option>". $name ."</option>\n";
+                }else if($prefix === "dde"){
+                    $name = substr($input['name'], strpos($input['name'], "_") + 1);
+                    $content .= "        <option>". $name ."</option> \n    </select>\n    <br/>\n";
+                }else if($prefix === "radio"){
+                    $name = substr($input['name'], strpos($input['name'], "_") + 1);
+                    $content .= "    <span class='radioBlock'>\n        <input type='radio' name='". $latestLabelName ."' ". $labelNeeded ." value='". $name ."' id='". $name ."' />\n        <label class='radio' for='". $name ."'> " . $name . "</label>\n    </span>\n    <br/>\n";
+                }else if($prefix === "check"){
+                    $name = substr($input['name'], strpos($input['name'], "_") + 1);
+                    $content .= "    <span class='checkboxBlock'>\n        <input type='checkbox' name='". $latestLabelName ."' ". $labelNeeded . " value='".  $name ."' id='". $name ."' />\n        <label class='checkbox' for='". $name . "'>". $name ."</label>\n    </span>\n    <br/>\n";
                 } else{
-                    $field = "<input name='" . $input[1]['name'] . "'  " . $type . $needed .  " />";
+
+                    if ($prefix === "pw"){
+                        $type = "type='password'";
+                    }
+
+                    if (strpos($input['type'], ";") !== false){
+                        $type = "type='number' step='any' ";
+                    } else if (strpos($input['type'], "area") !== false) {
+                        $type = "";
+                    }
+                    else{
+                        $type = "type='". $input['type'] ."' ";
+                    }
+
+                    if (strpos($input['type'], "area")){
+                        $field = "    <textarea  name='" . $input['name'] . "' id='" . $input['name'] . "'" . $needed . "></textarea>\n";
+                    } else{
+                        $field = "    <input name='" . $input['name'] . "' id='" . $input['name'] . "'  " . $type . $needed .  " />\n";
+                    }
+
+                    $content .= "    <label for='" . $input['name'] . "'>" . $input['name'] . " : " . $symbol . "</label>\n" . $field . "    <br/>\n";
+
                 }
 
 
-                $content .= "<label for='" . $input[1]['name'] . "'>" . $input[1]['name'] . " : " . $symbol . "</label>" . $field . "<br/>";
+
+
+
+
             }
 
         }
 
-        $form = "<form method='POST' action=''>" . $content . "<input type='submit' class='btn btn-success' /></form>";
+        $form = "<form method='POST' action=''>\n" . $content . "    <input type='submit' class='btn btn-success submit-button' />\n</form>";
         return $form;
     }
+
+
+    /**
+     * @param $cols
+     * @return mixed
+     */
+    private function fetchPw($cols){
+        // Index for changing the outer array
+        $index=0;
+        foreach($cols as $col){
+
+            $prefix = substr($col['Field'], 0 , strpos($col['Field'], "_"));
+            if ($prefix === "pw"){
+                $name = substr($col['Field'], strpos($col['Field'], "_") + 1);
+                $cols[$index]['Type'] = "password";
+                $cols[$index]['Field'] = $name;
+            }
+            $index++;
+        }
+        return $cols;
+    }
+
 
     /**
      * Delivers form from table name
@@ -174,10 +246,17 @@ class formhandler {
      * @return mixed
      */
     public function getForm($tablename){
+        // Get all collumns and their attributes in table
         $collumns = $this->getCollumnsForTable($tablename);
-        $formArray = $this->parseCollumnsForForm($collumns);
+
+        $fetchedCols = $this->fetchPw($collumns);
+
+        // Filters usefull information
+        $formArray = $this->parseCollumnsForForm($fetchedCols);
+
         $form = $this->formBuild($formArray);
         return $form;
     }
+
 
 }

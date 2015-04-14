@@ -22,6 +22,7 @@ $databsemanager = new databasemanger();
     <link rel="stylesheet" type="text/css" href="web/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="web/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="web/css/style.css">
+    <script type="text/javascript" src="web/js/prettify.js"></script>
 </head>
 <body>
 <main>
@@ -37,7 +38,7 @@ $databsemanager = new databasemanger();
                     // List all Tables as Links
                     $tables = $databsemanager->getTables();
                     foreach($tables as $tablename){?>
-                        <a href="#"><button class="btn btn-form"><?php echo $tablename['name']; ?></button></a>
+                        <button class="btn btn-form"><?php echo $tablename['name']; ?></button>
                     <?php
                     }
                 ?>
@@ -56,6 +57,7 @@ $databsemanager = new databasemanger();
 </footer>
 <script src="web/js/jquery.min.js"></script>
 <script src="web/js/bootstrap.min.js"></script>
+<script src="web/js/ZeroClipboard.min.js"></script>
 <script src="web/js/app.js"></script>
 </body>
 </html>

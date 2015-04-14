@@ -37,7 +37,8 @@ body{
 
 main{
     text-align: center;
-    margin: 50px 0 300px;
+    margin: 50px 0 50px;
+    min-height: 70vh;
 }
 
 footer{
@@ -45,7 +46,7 @@ footer{
     height: 150px;
     background-color: #072E5E;
     bottom: 0;
-    padding: 35px;
+    padding: 34px;
 }
 
 h1{
@@ -73,27 +74,28 @@ pre{
     text-align: left;
 }
 
+select{
+    display: block;
+}
+
 form{
     width: 80%;
+    margin: 20px auto 0;
 }
 
 form>label{
     width: 20%;
     text-align: left;
+    float: left;
+    margin-left: 19.5%;
 }
 
-form>input, textarea{
+form>input, textarea, form>select{
     color: black;
-    text-align: right;
     max-width: 40%;
     min-width: 40%;
     text-align: left;
-}
-
-form>input:last-child{
-    margin-top: 20px;
-    max-width: 20%;
-    min-width: 20%;
+    display: block;
 }
 
 input[type=date], input[type=time], input[type=datetime-local], input[type=month]{
@@ -115,6 +117,28 @@ input[type=date], input[type=time], input[type=datetime-local], input[type=month
     background-color: #0b4284;
 }
 
+.radio, .checkbox{
+    width: 39%;
+    display: inline-block;
+    margin: 0;
+}
+
+.radioBlock, .checkboxBlock{
+    text-align: left;
+    position: absolute;
+    left: 44%;
+    width: 450px;
+    line-height: 3.5;
+    margin-top: -17px;
+}
+
+.submit-button{
+    margin-top: 20px;
+    min-width: 175px;
+    font-size: 16px;
+    font-family: 'Lobster', cursive;
+}
+
 #container{
     width: 80%;
     margin: 0 auto;
@@ -130,4 +154,123 @@ input[type=date], input[type=time], input[type=datetime-local], input[type=month
 
 #rendered-form{
     margin: 5px 0 15px;
+}
+
+#code-title{
+    margin-top: 100px;
+}
+
+
+/********* Pretty Print ***********/
+
+.str
+{
+    color: #EC7600;
+}
+.kwd
+{
+    color: #93C763;
+}
+.com
+{
+    color: #66747B;
+}
+.typ
+{
+    color: #678CB1;
+}
+.lit
+{
+    color: #FACD22;
+}
+.pun
+{
+    color: #F1F2F3;
+}
+.pln
+{
+    color: #F1F2F3;
+}
+.tag
+{
+    color: #FFCF85;
+}
+.atn
+{
+    color: #E0E2E4;
+}
+.atv
+{
+    color: #B4C978;
+}
+.dec
+{
+    color: purple;
+}
+pre.prettyprint
+{
+    border: 0px solid #888;
+}
+ol.linenums
+{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.prettyprint {
+    background: #393939;
+}
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+    background: #111;
+}
+@media print
+{
+    .str
+    {
+        color: #060;
+    }
+    .kwd
+    {
+        color: #006;
+        font-weight: bold;
+    }
+    .com
+    {
+        color: #600;
+        font-style: italic;
+    }
+    .typ
+    {
+        color: #404;
+        font-weight: bold;
+    }
+    .lit
+    {
+        color: #044;
+    }
+    .pun
+    {
+        color: #440;
+    }
+    .pln
+    {
+        color: #000;
+    }
+    .tag
+    {
+        color: #006;
+        font-weight: bold;
+    }
+    .atn
+    {
+        color: #404;
+    }
+    .atv
+    {
+        color: #060;
+    }
 }

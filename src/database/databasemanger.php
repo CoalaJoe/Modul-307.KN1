@@ -14,6 +14,7 @@ namespace Manager;
  */
 class databasemanger {
 
+
     /**
      * Establishes a Databaseconnection.
      * @return bool|\mysqli
@@ -46,6 +47,10 @@ class databasemanger {
         }
     }
 
+    public function __construct(){
+        $query = "CREATE DATABASE IF NOT EXISTS KN1";
+        mysqli_query(mysqli_connect("127.0.0.1", "root", "root"), $query);
+    }
 
 
 }
