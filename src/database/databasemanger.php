@@ -14,31 +14,36 @@ namespace Manager;
  */
 class databasemanger {
 
-
+    /**
+     * @var string IP of the Database
+     */
     private $ip = "127.0.0.1";
 
+    /**
+     * @var string Username to connect to the database
+     */
     private $username = "root";
 
+    /**
+     * @var string Password for the user
+     */
     private $password = "root";
 
+    /**
+     * @var string Name of the database
+     */
     private $database = "KN1";
 
     /**
-     * Establishes a Databaseconnection.
-     * @return bool|\mysqli
+     * PHP-Constructor
      */
-    public function connect(){
-        $db = mysqli_connect($this->ip, $this->username, $this->password, $this->database);
-        $db->set_charset("utf8");
-        if ($db->connect_errno > 0){
-            return false;
-        } else{
-            return $db;
-        }
+    public function __construct(){
+        $query = "CREATE DATABASE IF NOT EXISTS `". $this->database. "`";
+        mysqli_query(mysqli_connect($this->ip, $this->username, $this->password), $query);
     }
 
     /**
-     * Get Tablenames for displaying buttons.
+     * Get table names for displaying buttons.
      * @return array|bool
      */
     public function getTables(){
@@ -56,11 +61,17 @@ class databasemanger {
     }
 
     /**
-     * PHP-Constructor
+     * Establishes a database connection.
+     * @return bool|\mysqli
      */
-    public function __construct(){
-        $query = "CREATE DATABASE IF NOT EXISTS `". $this->database. "`";
-        mysqli_query(mysqli_connect($this->ip, $this->username, $this->password), $query);
+    public function connect(){
+        $db = mysqli_connect($this->ip, $this->username, $this->password, $this->database);
+        $db->set_charset("utf8");
+        if ($db->connect_errno > 0){
+            return false;
+        } else{
+            return $db;
+        }
     }
 
 

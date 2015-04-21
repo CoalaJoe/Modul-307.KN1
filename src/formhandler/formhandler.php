@@ -77,12 +77,30 @@ class formhandler {
 
                 $attr["type"] = $this->typeParser($collumn['Type']);
 
+                if ($attr['type'] == "textarea" || $attr['type'] == "text"){
+                    $attr["length"] = $this->getLength($collumn["Type"]);
+                }
+
             }
 
             array_push($content, $attr);
         }
 
         return $content;
+    }
+
+    /**
+     * @param string $data
+     * @return null| string
+     */
+    public function getLength($data){
+        // Regular expression for looking between ()
+        preg_match("/\((.+?)\)/", $data, $match);
+        if (sizeof($match) != 0){
+            return $match[1];
+        } else{
+            return null;
+        }
     }
 
 
@@ -123,7 +141,9 @@ class formhandler {
             case (preg_match('/^date/', $type) ? true : false) :
                 return "date";
                 break;
-            default: break;
+            default:
+                return "";
+                break;
         }
     }
 
@@ -137,8 +157,6 @@ class formhandler {
         // Final HTML Output
         $content = "";
 
-        $dropdowns = [];
-
         // Variable for collum input
         $latestLabelName = "";
         $labelNeeded = "";
@@ -151,7 +169,6 @@ class formhandler {
                     $symbol = "<span class='required'>*</span>";
                     if ($prefix === 'l'){
                         $labelNeeded = $needed;
-                        $latestSymbol = $symbol;
                     }
                 } else {
                     $needed = "";
@@ -188,9 +205,6 @@ class formhandler {
                     $content .= "    <span class='checkboxBlock'>\n        <input type='checkbox' name='". $latestLabelName ."[]' ". $needed . " value='".  $name ."' id='". $name ."' />\n        ". $symbol ."<label class='checkbox' for='". $name . "'>". $name ."</label>\n    </span>\n    <br/>\n";
                 } else{
 
-                    if ($prefix === "pw"){
-                        $type = "type='password'";
-                    }
 
                     if (strpos($input['type'], ";") !== false){
                         $type = "type='number' step='any' ";
@@ -201,10 +215,15 @@ class formhandler {
                         $type = "type='". $input['type'] ."' ";
                     }
 
-                    if (strpos($input['type'], "area")){
-                        $field = "    <textarea  name='" . $input['name'] . "' id='" . $input['name'] . "'" . $needed . "></textarea>\n";
+                    if (isset($input['length'])) {
+                        $addition = "maxlength='". $input['length'] ."'";
                     } else{
-                        $field = "    <input name='" . $input['name'] . "' id='" . $input['name'] . "'  " . $type . $needed .  " />\n";
+                        $addition = "";
+                    }
+                    if (strpos($input['type'], "area")){
+                        $field = "    <textarea  name='" . $input['name'] . "' id='" . $input['name'] . "'" . $needed . " ". $addition ." ></textarea>\n";
+                    } else{
+                        $field = "    <input name='" . $input['name'] . "' id='" . $input['name'] . "'  " . $type . $needed .  " ". $addition ." />\n";
                     }
 
                     $content .= "    <label for='" . $input['name'] . "'>" . $input['name'] . " : " . $symbol . "</label>\n" . $field . "    <br/>\n";

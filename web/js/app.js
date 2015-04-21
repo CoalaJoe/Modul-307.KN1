@@ -5,11 +5,10 @@
 (function ($) {
     "use strict";
 
-
     $(document).ready(function () {
 
         // Add Event on .btn-form, then get the fields of tabler over ajax
-        $('.btn-form').on('click',  function(){
+        $('.btn-form').on('click', function () {
             var tablename = $(this).text();
             $.ajax({
                 method: 'POST',
@@ -17,7 +16,7 @@
                 data: {
                     name: tablename
                 },
-                success: function(data){
+                success: function (data) {
                     $('#rendered-form').html(data);
                     $('#rendered-form').append('<h1 id="code-title">Code</h1><hr/><pre id="code-area" class="prettyprint js-zeroclipboard-target lang-html"></pre>').hide().fadeIn("slow");
                     $('#code-area').text(data);
@@ -29,19 +28,19 @@
         });
 
         // ZeroClipboard to save sourcecode to your clipboard. Requires Flash.
-        var addCopying = function(){
-            var client = new ZeroClipboard( document.getElementById("copy-button") );
-            client.on( "ready", function( readyEvent ) {
+        var addCopying = function () {
+            var client = new ZeroClipboard(document.getElementById("copy-button"));
+            client.on("ready", function (readyEvent) {
                 // alert( "ZeroClipboard SWF is ready!" );
                 $('#copy-button').attr('data-clipboard-text', $('#code-area').text());
-                client.on( "aftercopy", function( event ) {
+                client.on("aftercopy", function (event) {
                     // `this` === `client`
                     // `event.target` === the element that was clicked
-                } );
-            } );
+                });
+            });
         }
 
 
     });
 
-}) (jQuery);
+})(jQuery);

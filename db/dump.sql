@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Erstellungszeit: 17. Apr 2015 um 19:58
+-- Erstellungszeit: 21. Apr 2015 um 08:04
 -- Server Version: 5.5.38
 -- PHP-Version: 5.6.2
 
@@ -19,11 +19,49 @@ USE `KN1`;
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `Checkbox einzeln`
+--
+
+DROP TABLE IF EXISTS `Checkbox einzeln`;
+CREATE TABLE `Checkbox einzeln` (
+  `l_Label` int(25) NOT NULL,
+  `check_Erste Checkbox` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Checkbox Gruppe`
+--
+
+DROP TABLE IF EXISTS `Checkbox Gruppe`;
+CREATE TABLE `Checkbox Gruppe` (
+  `l_Label` int(11) NOT NULL,
+  `check_Wert1` tinyint(1) DEFAULT NULL,
+  `check_Wert2` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Datumsfelder`
+--
+
+DROP TABLE IF EXISTS `Datumsfelder`;
+CREATE TABLE `Datumsfelder` (
+  `Geburtstag` date NOT NULL,
+  `Jetztige Zeit` time NOT NULL,
+  `Unterrichtsbeginn` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `Dropdowntest`
 --
 
 DROP TABLE IF EXISTS `Dropdowntest`;
-CREATE TABLE IF NOT EXISTS `Dropdowntest` (
+CREATE TABLE `Dropdowntest` (
 `id` int(11) NOT NULL,
   `l_Anrede` varchar(255) NOT NULL,
   `dda_Herr` tinyint(4) DEFAULT NULL,
@@ -48,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `Dropdowntest` (
 --
 
 DROP TABLE IF EXISTS `formular`;
-CREATE TABLE IF NOT EXISTS `formular` (
+CREATE TABLE `formular` (
 `id` int(11) NOT NULL,
   `Vorname` varchar(255) NOT NULL,
   `Nachname` varchar(255) NOT NULL,
@@ -70,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `formular` (
 --
 
 DROP TABLE IF EXISTS `Formular2`;
-CREATE TABLE IF NOT EXISTS `Formular2` (
+CREATE TABLE `Formular2` (
 `id` int(11) NOT NULL,
   `method` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -82,10 +120,93 @@ CREATE TABLE IF NOT EXISTS `Formular2` (
 --
 
 DROP TABLE IF EXISTS `Formular3`;
-CREATE TABLE IF NOT EXISTS `Formular3` (
+CREATE TABLE `Formular3` (
 `id` int(11) NOT NULL,
   `method` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Passwort`
+--
+
+DROP TABLE IF EXISTS `Passwort`;
+CREATE TABLE `Passwort` (
+  `pw_Passwort` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Radio-Button einzeln`
+--
+
+DROP TABLE IF EXISTS `Radio-Button einzeln`;
+CREATE TABLE `Radio-Button einzeln` (
+  `l_Test Label` varchar(25) NOT NULL,
+  `radio_test` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Radio-Button Gruppe`
+--
+
+DROP TABLE IF EXISTS `Radio-Button Gruppe`;
+CREATE TABLE `Radio-Button Gruppe` (
+  `l_Test Label` varchar(25) NOT NULL,
+  `radio_Erster Testwert` int(11) DEFAULT NULL,
+  `radio_Zweiter Testwert` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Select Dropdown`
+--
+
+DROP TABLE IF EXISTS `Select Dropdown`;
+CREATE TABLE `Select Dropdown` (
+  `l_Label` varchar(25) NOT NULL,
+  `dda_Antwort1` varchar(25) NOT NULL,
+  `dde_Antwort2` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Textarea`
+--
+
+DROP TABLE IF EXISTS `Textarea`;
+CREATE TABLE `Textarea` (
+  `Textarea` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Textfeld`
+--
+
+DROP TABLE IF EXISTS `Textfeld`;
+CREATE TABLE `Textfeld` (
+  `Text` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Zahlenfelder`
+--
+
+DROP TABLE IF EXISTS `Zahlenfelder`;
+CREATE TABLE `Zahlenfelder` (
+  `Alter` int(11) NOT NULL,
+  `Gewicht` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indizes der exportierten Tabellen
