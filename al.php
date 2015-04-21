@@ -1,10 +1,13 @@
 <?php
 /**
- * @file     index.php
+ * Loads all classes for easier use in diffrent files.
+ * @file     al.php
  *
  * @author   : kato
  * @since    : 24.01.14 17:52
  * @internal UTF-Chars: ÄÖÜäöüß∆
+ *
+ * Kato is an ex-employee of the same company I work in.
  */
 use malkusch\autoloader\Autoloader;
 

@@ -8,8 +8,10 @@
 
 use Manager\databasemanger;
 
+// Use the autoloader
 require("al.php");
 
+// Instance of databasemanager.
 $databsemanager = new databasemanger();
 
 ?>

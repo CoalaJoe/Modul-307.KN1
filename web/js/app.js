@@ -8,6 +8,7 @@
 
     $(document).ready(function () {
 
+        // Add Event on .btn-form, then get the fields of tabler over ajax
         $('.btn-form').on('click',  function(){
             var tablename = $(this).text();
             $.ajax({
@@ -27,6 +28,7 @@
             });
         });
 
+        // ZeroClipboard to save sourcecode to your clipboard. Requires Flash.
         var addCopying = function(){
             var client = new ZeroClipboard( document.getElementById("copy-button") );
             client.on( "ready", function( readyEvent ) {

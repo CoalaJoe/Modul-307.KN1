@@ -15,12 +15,20 @@ namespace Manager;
 class databasemanger {
 
 
+    private $ip = "127.0.0.1";
+
+    private $username = "root";
+
+    private $password = "root";
+
+    private $database = "KN1";
+
     /**
      * Establishes a Databaseconnection.
      * @return bool|\mysqli
      */
     public function connect(){
-        $db = mysqli_connect("127.0.0.1", 'root', 'root', 'KN1');
+        $db = mysqli_connect($this->ip, $this->username, $this->password, $this->database);
         $db->set_charset("utf8");
         if ($db->connect_errno > 0){
             return false;
@@ -47,9 +55,12 @@ class databasemanger {
         }
     }
 
+    /**
+     * PHP-Constructor
+     */
     public function __construct(){
-        $query = "CREATE DATABASE IF NOT EXISTS KN1";
-        mysqli_query(mysqli_connect("127.0.0.1", "root", "root"), $query);
+        $query = "CREATE DATABASE IF NOT EXISTS `". $this->database. "`";
+        mysqli_query(mysqli_connect($this->ip, $this->username, $this->password), $query);
     }
 
 

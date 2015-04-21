@@ -33,7 +33,7 @@ class formhandler {
      * @return array|bool
      */
     public function getCollumnsForTable($tablename){
-        $query = "DESCRIBE " . $tablename;
+        $query = "DESCRIBE `" . $tablename . "`";
         if ($result = mysqli_query($this->databasemanager->connect(), $query)){
             $data = [];
             while($row = mysqli_fetch_row($result)){
@@ -81,14 +81,13 @@ class formhandler {
 
             array_push($content, $attr);
         }
-        // $form = "<form method='POST' action=''></form>";
-        // $form = $collumns;
+
         return $content;
     }
 
 
     /**
-     * Converts databsetypes in forminputtypes
+     * Converts databsetypes in forminputtypes by using regular expression and tenary.
      * @param $type
      * @return string
      */
@@ -143,6 +142,7 @@ class formhandler {
         // Variable for collum input
         $latestLabelName = "";
         $labelNeeded = "";
+        $lastPrefix = "";
         foreach($array as $input){
             if (isset($input['isNull'])){
                 $prefix = substr($input['name'], 0 , strpos($input['name'], "_"));
@@ -159,6 +159,12 @@ class formhandler {
                 }
 
 
+                // Check for last element for better layout
+                if ($lastPrefix != $prefix && ($lastPrefix == "check" || $lastPrefix == "radio")) {
+                    $content .= "    <br/>\n";
+                }
+
+                    $lastPrefix = $prefix;
 
                 if ($prefix === "l"){
                     $name = substr($input['name'], strpos($input['name'], "_") + 1);
@@ -179,7 +185,7 @@ class formhandler {
                     $content .= "    <span class='radioBlock'>\n        <input type='radio' name='". $latestLabelName ."' ". $labelNeeded ." value='". $name ."' id='". $name ."' />\n        <label class='radio' for='". $name ."'> " . $name . "</label>\n    </span>\n    <br/>\n";
                 }else if($prefix === "check"){
                     $name = substr($input['name'], strpos($input['name'], "_") + 1);
-                    $content .= "    <span class='checkboxBlock'>\n        <input type='checkbox' name='". $latestLabelName ."' ". $labelNeeded . " value='".  $name ."' id='". $name ."' />\n        <label class='checkbox' for='". $name . "'>". $name ."</label>\n    </span>\n    <br/>\n";
+                    $content .= "    <span class='checkboxBlock'>\n        <input type='checkbox' name='". $latestLabelName ."[]' ". $needed . " value='".  $name ."' id='". $name ."' />\n        ". $symbol ."<label class='checkbox' for='". $name . "'>". $name ."</label>\n    </span>\n    <br/>\n";
                 } else{
 
                     if ($prefix === "pw"){
@@ -205,21 +211,17 @@ class formhandler {
 
                 }
 
-
-
-
-
-
             }
 
         }
 
-        $form = "<form method='POST' action=''>\n" . $content . "    <input type='submit' class='btn btn-success submit-button' />\n</form>";
+        $form = "<form method='POST' action='yourFormhandler.php'>\n" . $content . "    <input type='submit' class='btn btn-success submit-button' />\n</form>";
         return $form;
     }
 
 
     /**
+     * Prefetches password fields
      * @param $cols
      * @return mixed
      */
@@ -254,7 +256,9 @@ class formhandler {
         // Filters usefull information
         $formArray = $this->parseCollumnsForForm($fetchedCols);
 
+        // Build the HTML
         $form = $this->formBuild($formArray);
+
         return $form;
     }
 
